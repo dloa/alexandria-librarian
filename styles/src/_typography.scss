@@ -1,0 +1,38 @@
+h1, h2, h3, h4 {
+    margin-top: 0;
+}
+
+h4 {
+    font-weight: 700;
+}
+
+.title {
+    margin-bottom: 25px;
+}
+
+.muted {
+    color: $gray;
+}
+
+a {
+    color: $primary;
+}
+
+p,
+label {
+    color: $gray;
+}
+
+.settings-title {
+    color: black;
+    font-size: 18px;
+    margin-top: 25px;
+}
+
+.rig-label {
+    color: black;
+}
+
+.muted {
+    color: $gray;
+}
