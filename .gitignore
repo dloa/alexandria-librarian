@@ -1,8 +1,6 @@
+# Node
 .DS_Store
 .swp
-build
-dist
-node_modules
 npm-debug.log
 
 # Cache
@@ -13,3 +11,10 @@ cache
 
 # IDEs
 .idea
+
+# Custom
+build
+dist
+release
+alexandria-daemons
+node_modules
