@@ -41,11 +41,6 @@ module.exports = function(grunt) {
                     dest: 'build/'
                 }, {
                     expand: true,
-                    cwd: 'bin/' + platform + '/',
-                    src: ['**/*'],
-                    dest: 'build/bin/',
-                }, {
-                    expand: true,
                     cwd: 'images/',
                     src: ['**/*'],
                     dest: 'build/images/'
@@ -54,6 +49,14 @@ module.exports = function(grunt) {
                     cwd: 'fonts/',
                     src: ['**/*'],
                     dest: 'build/fonts/'
+                }]
+            },
+            daemons: {
+                files: [{
+                    expand: true,
+                    cwd: 'alexandria-daemons/bins/' + platform + '/',
+                    src: ['**/*'],
+                    dest: 'build/bin/',
                 }]
             },
             'release-darwin': {
@@ -74,6 +77,15 @@ module.exports = function(grunt) {
                 }
             }
         },
+        gitclone: {
+  		  daemons: {
+  		    options: {
+  		      directory: 'alexandria-daemons',
+  		      branch: 'master',
+  		      repository: 'https://github.com/dloa/alexandria-daemons.git'
+  		    }
+  		  }
+  		},
         sass: {
             options: {
                 outputStyle: 'compressed',
@@ -152,7 +164,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['newer:babel', 'sass', 'newer:copy:build', 'shell:electron', 'watchChokidar']);
+    grunt.registerTask('default', ['newer:babel', 'sass', 'newer:copy:build', 'newer:copy:daemons', 'shell:electron', 'watchChokidar']);
 
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
