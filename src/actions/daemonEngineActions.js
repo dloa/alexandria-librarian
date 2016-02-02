@@ -87,8 +87,7 @@ class daemonEngineActions {
                         if (installed)
                             DaemonUtil.enable({
                                 id: 'florincoind',
-                                args: ['-printtoconsole'],
-                                env: {}
+                                args: ['-printtoconsole']
                             });
                         else
                             this.actions.florincoind('install');
@@ -99,14 +98,9 @@ class daemonEngineActions {
                 break;
             case 'install':
                 DaemonUtil.install({
-                    id: 'florincoind',
-                    args: [],
-                    env: {}
-                }, (process.platform === 'darwin'))
-                    .then(() => {
-                        console.log('installed');
-                        this.actions.florincoind('enable');
+                        id: 'florincoind'
                     })
+                    .then(() => this.actions.florincoind('enable'))
                     .catch(console.error);
                 break;
         }
@@ -139,9 +133,8 @@ class daemonEngineActions {
                 break;
             case 'install':
                 DaemonUtil.install({
-                    id: 'libraryd',
-                    args: []
-                }).then(this.actions.libraryd.bind(this, 'enable'))
+                        id: 'libraryd'
+                    }).then(this.actions.libraryd.bind(this, 'enable'))
                     .catch(console.error);
                 break;
         }

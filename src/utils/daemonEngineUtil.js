@@ -234,8 +234,8 @@ module.exports = {
 			id: daemon.id,
 			code: 4
 		});
-		let installPath = path.join(this.installDir, this.getExecName(daemon.id));
-		let daemonObj = this.generate({
+		const installPath = path.join(this.installDir, this.getExecName(daemon.id));
+		const daemonObj = this.generate({
 			exec: installPath,
 			id: daemon.id
 		}, daemon.args, daemon.env);
@@ -273,53 +273,39 @@ module.exports = {
 				id: daemon.id,
 				code: 2
 			});
-			if (!unzip) {
-				let execName = this.getExecName(daemon.id)
-				let installPath = path.join(this.installDir, execName);
-				let sourcePath = path.join(this.binDir, execName);
+			const execName = this.getExecName(daemon.id)
+			const installPath = path.join(this.installDir, execName);
+			const sourcePath = path.join(this.binDir, execName);
 
-				this.checkConfig(daemon.id)
-					.then(CommonUtil.copy.bind(this, sourcePath, installPath))
-					.then(() => {
-						return new Promise(resolve => {
-							chmod(installPath, {
-								read: true,
-								write: true,
-								execute: true
-							});
-							resolve();
+			this.checkConfig(daemon.id)
+				.then(CommonUtil.copy.bind(this, sourcePath, installPath))
+				.then(() => {
+					return new Promise(resolve => {
+						chmod(installPath, {
+							read: true,
+							write: true,
+							execute: true
 						});
-					})
-					.then(opts => {
-						if (!(daemon.args.length > 0))
-							return resolve();
+						resolve();
+					});
+				})
+				.then(opts => {
+					if (!(daemon.args.length > 0))
+						return resolve();
 
-						let execCMD = (process.platform === 'win32') ? installPath : "'" + installPath + "'";
-						exec(execCMD, daemon.args, {
+					const execCMD = (process.platform === 'win32') ? installPath : "'" + installPath + "'";
+					exec(execCMD, daemon.args, {
 							cwd: this.installDir
 						})
-							.then(output => {
-								handelListener('install', daemon.id, output.toString())
-									.then(resolve)
-									.catch(reject);
-							})
-							.catch(output => {
-								handelListener('install', daemon.id, output.toString())
-									.then(resolve)
-									.catch(reject);
-							});
-					})
-					.catch(reject);
-
-			} else {
-				this.checkConfig(daemon.id)
-					.then(extractZIP.bind(this, this.getExecName(daemon.id, true), this.installDir))
-					.then(this.checkConfig.bind(this, daemon))
-					.catch(reject);
-
-			}
-
-
+						.then(output => handelListener('install', daemon.id, output.toString()))
+						.then(resolve)
+						.catch(output => {
+							handelListener('install', daemon.id, output.toString())
+								.then(resolve)
+								.catch(reject);
+						});
+				})
+				.catch(reject);
 		});
 	},
 	generate(daemon, args = [], env = {}, autoRestart = false, detached = false) {
@@ -406,15 +392,11 @@ module.exports = {
 				return (process.platform === 'win32') ? 'ipfs.exe' : 'ipfs';
 				break;
 			case 'florincoind':
-				if (extract)
-					return 'florincoind.zip'
-				else
-					return (process.platform === 'win32') ? 'florincoind.exe' : 'florincoind';
+				return (process.platform === 'win32') ? 'florincoind.exe' : 'florincoind';
 				break;
 			case 'libraryd':
 				return (process.platform === 'win32') ? 'libraryd.exe' : 'libraryd';
 				break;
-
 		}
 	}
 }
