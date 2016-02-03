@@ -1,8 +1,5 @@
 import _ from 'lodash';
-import {
-	Client as bitcoinClient
-}
-from 'bitcoin';
+import bitcoin from 'bitcoin';
 import Promise from 'bluebird';
 import path from 'path';
 import fs from 'fs';
@@ -13,8 +10,20 @@ import {
 }
 from 'remote';
 
+
+class florinAPI extends bitcoin.Client {
+	constructor(props) {
+		super(props);
+	}
+
+}
+
+
+
 export
 default {
+	api: florinAPI,
+
 	loadConf(user = 'default', password = 'default') {
 		return new Promise((resolve, reject) => {
 			const confDir = path.join(app.getPath('appData'), 'Florincoin');
