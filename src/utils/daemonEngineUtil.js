@@ -57,31 +57,6 @@ const generateAPI = daemon => {
 	}
 }
 
-const extractZIP = (sourcePath, targetPath) => {
-	let files = [];
-	return new Promise((resolve, reject) => {
-		new DecompressZip(sourcePath)
-			.on('error', reject)
-			.on('extract', log => {
-				files.forEach(file => chmod(path.join(targetPath, file.path), {
-					read: true,
-					write: true,
-					execute: true
-				}));
-				resolve();
-			})
-			.extract({
-				path: targetPath,
-				filter: entry => {
-					return files.push({
-						path: entry.path,
-						mode: entry.mode.toString(8)
-					});
-				}
-			});
-	});
-}
-
 const handelListener = (mode = 'install', daemon, input = '') => {
 	return new Promise((resolve, reject) => {
 		switch (daemon) {
@@ -289,7 +264,7 @@ module.exports = {
 						resolve();
 					});
 				})
-				.then(opts => {
+				.then(() => {
 					if (!(daemon.args.length > 0))
 						return resolve();
 
@@ -297,7 +272,9 @@ module.exports = {
 					exec(execCMD, daemon.args, {
 							cwd: this.installDir
 						})
-						.then(output => handelListener('install', daemon.id, output.toString()))
+						.then(output => {
+							return handelListener('install', daemon.id, output.toString());
+						})
 						.then(resolve)
 						.catch(output => {
 							handelListener('install', daemon.id, output.toString())
@@ -379,7 +356,9 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 			switch (daemon) {
 				case 'florincoind':
-					return florincoindUtil.loadConf();
+					return florincoindUtil.loadConf()
+						.then(resolve)
+						.catch(reject);
 					break;
 				default:
 					return resolve();

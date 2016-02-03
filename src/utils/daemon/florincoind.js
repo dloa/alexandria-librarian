@@ -15,7 +15,6 @@ from 'remote';
 
 export
 default {
-
 	loadConf(user = 'default', password = 'default') {
 		return new Promise((resolve, reject) => {
 			const confDir = path.join(app.getPath('appData'), 'Florincoin');
@@ -71,29 +70,26 @@ default {
 						const backupPath = path.join(app.getPath('appData'), 'Florincoin', 'Florincoin.conf.backup');
 						CommonUtil.copy(confFile, backupPath)
 							.then(() => {
-								return new Promise((resolve, reject) => {
-									fs.writeFile(confFile, conf.join('\n'), (err, data) => {
-										if (err) {
-											console.error('florincoind: Error saving configuration')
-											DaemonActions.enabling({
-												id: 'florincoind',
-												code: 8,
-												error: 'Error saving configuration'
-											});
-											return reject(err);
-										}
-										return resolve();
-									});
+								fs.writeFile(confFile, conf.join('\n'), (err, data) => {
+									if (err) {
+										console.error('florincoind: Error saving configuration')
+										DaemonActions.enabling({
+											id: 'florincoind',
+											code: 8,
+											error: 'Error saving configuration'
+										});
+										reject(err);
+									}
+									resolve();
 								});
 							})
-							.then(resolve)
 							.catch(err => {
 								DaemonActions.enabling({
 									id: 'florincoind',
 									code: 8,
 									error: 'Problem backing up pre-exsisting configuration; Installation Aborted'
 								});
-								return reject(err);
+								reject(err);
 							})
 					}
 				});
@@ -106,7 +102,7 @@ default {
 							code: 8,
 							error: 'Error saving configuration'
 						});
-						return reject(err);
+						reject(err);
 					}
 					resolve();
 				});
