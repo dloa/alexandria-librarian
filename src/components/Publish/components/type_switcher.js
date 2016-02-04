@@ -10,7 +10,7 @@ default React.createClass({
                         {
                             this.props.types.map((type, idx) => {
                                 return (
-                                    <li key={idx} onClick={this.props.handleChangeType.bind(this, type)} className={((this.props.selected === type.replace(/\s/g, '').toLowerCase()) ? 'active' : '')}>
+                                    <li key={idx} onClick={() => this.props.handleChangeType(type)} className={((this.props.selected === type.replace(/\s/g, '').toLowerCase()) ? 'active' : '')}>
                                         <a>{type}</a>
                                     </li>
                                     );
