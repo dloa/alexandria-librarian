@@ -30,6 +30,23 @@
             margin-left: 0;
             margin-bottom: 25px;
         }
+        .publish {
+            background: $primary;
+            color: white;
+            border-radius: 4px;
+            margin-right: 49px;
+            padding: 5px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transition: 0.1s all;
+            &:hover,
+            &:focus {
+                color: white;
+                background: darken($primary, 5%);
+                box-shadow: 0 6px 40px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                transition: 0.1s all;
+            }
+        }
         a {
             display: block;
             text-decoration: none;
