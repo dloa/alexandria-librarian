@@ -12,7 +12,7 @@ import publishStore from './store';
 import Table from './components/table';
 import Register from './components/register';
 import TypeSwitcher from './components/type_switcher'
-
+import PublisherSwitcher from './components/publisher_switcher'
 
 
 
@@ -94,10 +94,14 @@ default React.createClass({
     render() {
         return (
             <div className="col-lg-12">
-                <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selectedType={this.state.selectedType}/>
+                <div className="section publish" id="publishArtifact">
+                    <h4 className="title">Publish Artifact</h4>
+                    <PublisherSwitcher/>
+                    <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selectedType={this.state.selectedType}/>
 
 
 
+                </div>
             </div>
         );
     }
