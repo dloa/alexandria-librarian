@@ -11,8 +11,12 @@ import publishStore from './store';
 /* Publisher Components */
 import Table from './components/table';
 import Register from './components/register';
-import TypeSwitcher from './components/type_switcher'
-import PublisherSwitcher from './components/publisher_switcher'
+import TypeSwitcher from './components/type_switcher';
+import PublisherSwitcher from './components/publisher_switcher';
+
+
+/* tabs */
+import MusicTab from './components/type_tabs/music';
 
 
 
@@ -27,16 +31,17 @@ export
 default React.createClass({
 
     getInitialState() {
+        const types = ['Music'];
         return {
-            types: ['Archive','Movies', 'Videos', 'Song', 'Album', 'Podcast', 'Recipies', 'Things'],
-            selectedType: 'album',
+            selectedType: types[0],
             files: {
                 audio: publishStore.getState().audio,
                 extra: publishStore.getState().extra,
                 cover: publishStore.getState().cover
             },
             meta: {},
-            pricing: {}
+            pricing: {},
+            types
         };
     },
     componentDidMount() {
@@ -91,6 +96,15 @@ default React.createClass({
                 break;
         }
     },
+
+    getTab(){
+        switch (this.state.selectedType.toLowerCase()) {
+            case 'music':
+                    return <MusicTab/>;
+                break;
+        }
+    },
+
     render() {
         return (
             <div className="col-lg-12">
@@ -98,7 +112,7 @@ default React.createClass({
                     <h4 className="title">Publish Artifact</h4>
                     <PublisherSwitcher/>
                     <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selectedType={this.state.selectedType}/>
-
+                    {this.getTab()}
 
 
                 </div>
