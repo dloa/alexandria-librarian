@@ -63,7 +63,7 @@ default React.createClass({
     },
     handleChangeType(type) {
         this.setState({
-            type: type.replace(/\s/g, '').toLowerCase()
+            selectedType: type.replace(/\s/g, '').toLowerCase()
         });
     },
     handelMetaChange(event) {
