@@ -33,7 +33,7 @@ default React.createClass({
     getInitialState() {
         const types = ['Music'];
         return {
-            selectedType: types[0],
+            selectedType: types[0].replace(/\s/g, '').toLowerCase(),
             files: {
                 audio: publishStore.getState().audio,
                 extra: publishStore.getState().extra,
@@ -111,7 +111,7 @@ default React.createClass({
                 <div className="section publish" id="publishArtifact">
                     <h4 className="title">Publish Artifact</h4>
                     <PublisherSwitcher/>
-                    <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selectedType={this.state.selectedType}/>
+                    <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>
                     {this.getTab()}
 
 
