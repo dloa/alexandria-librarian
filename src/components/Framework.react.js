@@ -11,10 +11,6 @@ import Sidebar from './Sidebar';
 @RouteContext
 class Framework extends React.Component {
 
-    constructor() {
-        super();
-    }
-
     componentWillMount() {
         new HTTPAPI();
     }
