@@ -24,8 +24,6 @@ class Actions {
 
     }
     pinLocal() {
-        this.dispatch();
-
         dialog.showOpenDialog({
             title: 'Select file',
             properties: ['openFile', 'createDirectory', 'multiSelections'],
@@ -55,11 +53,10 @@ class Actions {
                 });
             }
         });
+        return false
     }
 
     pinURL(url) {
-        this.dispatch();
-
         if (path.isAbsolute(url)) {
 
             Promise.all([IPFSUtil.addFile(url), CommonUtil.folderSize(url)])
@@ -92,17 +89,14 @@ class Actions {
                 })
                 .catch(console.error);
         }
+        return false
     }
 
     loadLocalDB() {
-        this.dispatch();
-
         CommonUtil.readJson(pinnedJson)
-            .then(this.actions.loadedDB)
-            .catch(e => {
-                this.actions.loadedDB({})
-            });
-
+            .then(data => this.actions.loadedDB(data))
+            .catch(e => this.actions.loadedDB({}));
+        return false
     }
 
 }

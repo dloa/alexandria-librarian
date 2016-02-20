@@ -37,7 +37,7 @@ default React.createClass({
         this.setState({
             active: tab
         });
-        _.defer(this.history.replaceState.bind(this, null, tab));
+        _.defer(this.history.replace.bind(this, tab))
     },
     render() {
         return (

@@ -12,11 +12,11 @@ module.exports = {
     },
 
     getLicense: function() {
-        request('https://raw.githubusercontent.com/dloa/alexandria-librarian/master/LICENSE.md', function(error, response, body) {
+        request('https://raw.githubusercontent.com/dloa/alexandria-librarian/master/LICENSE', (error, response, body) => {
             if (!error && response.statusCode == 200)
                 externalActions.gotLicense(body);
             else
-                fs.readFile(path.normalize(path.join(__dirname, '../../', 'LICENSE.md')), function(err, data) {
+                fs.readFile(path.normalize(path.join(__dirname, '../../', 'LICENSE')), (err, data) => {
                     if (err) return console.log(err);
                     externalActions.gotLicense(data);
                 })

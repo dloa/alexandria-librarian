@@ -11,18 +11,18 @@ class externalActions {
     }
 
     getLicense() {
-        this.dispatch();
         require('../utils/aboutUtil').getLicense();
+        return false
     }
 
     getContributors() {
-        this.dispatch();
         require('../utils/aboutUtil').getContributors();
+        return false
     }
 
     getVersion() {
-        this.dispatch();
         require('../utils/aboutUtil').getVersion();
+        return false
     }
 }
 
