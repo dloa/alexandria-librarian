@@ -57,6 +57,8 @@ const generateAPI = daemon => {
 	}
 }
 
+
+
 const handelListener = (mode = 'install', daemon, input = '') => {
 	return new Promise((resolve, reject) => {
 		switch (daemon) {
@@ -205,31 +207,46 @@ module.exports = {
 	installDir: path.join(app.getPath('userData'), 'bin'),
 
 	enable(daemon) {
-		DaemonActions.enabling({
-			id: daemon.id,
-			code: 4
-		});
-		const installPath = path.join(this.installDir, this.getExecName(daemon.id));
-		const daemonObj = this.generate({
-			exec: installPath,
-			id: daemon.id
-		}, daemon.args, daemon.env);
-		try {
-			daemonObj.start(pid => {
-				DaemonActions.enabled({
-					daemon: daemonObj,
+		this.checkRunning(daemon.id)
+			.then(running => {
+				console.log(running)
+
+				return
+
+				DaemonActions.enabling({
 					id: daemon.id,
-					pid: pid
+					code: 4
 				});
-			});
-		} catch (e) {
-			console.error(e);
-			DaemonActions.enabling({
-				id: daemon.id,
-				code: 8,
-				error: 'Initialization Error'
-			});
-		}
+				const installPath = path.join(this.installDir, this.getExecName(daemon.id));
+				const daemonObj = this.generate({
+					exec: installPath,
+					id: daemon.id
+				}, daemon.args, daemon.env);
+				try {
+					daemonObj.start(pid => {
+						DaemonActions.enabled({
+							daemon: daemonObj,
+							id: daemon.id,
+							pid: pid
+						});
+					});
+				} catch (e) {
+					console.error(e);
+					DaemonActions.enabling({
+						id: daemon.id,
+						code: 8,
+						error: 'Initialization Error'
+					});
+				}
+			})
+			.catch(err => {
+				console.error(e);
+				DaemonActions.enabling({
+					id: daemon.id,
+					code: 8,
+					error: 'Initialization Error'
+				});
+			})
 	},
 
 	disable(daemon) {
@@ -252,7 +269,9 @@ module.exports = {
 			const installPath = path.join(this.installDir, execName);
 			const sourcePath = path.join(this.binDir, execName);
 
-			this.checkConfig(daemon.id)
+
+			this.checkRunning(daemon.id)
+				.then(() => this.checkConfig(daemon.id))
 				.then(CommonUtil.copy.bind(this, sourcePath, installPath))
 				.then(() => {
 					return new Promise(resolve => {
@@ -265,16 +284,14 @@ module.exports = {
 					});
 				})
 				.then(() => {
-					if (!(daemon.args.length > 0))
+					if (!daemon.args.length > 0)
 						return resolve();
 
 					const execCMD = (process.platform === 'win32') ? installPath : "'" + installPath + "'";
 					exec(execCMD, daemon.args, {
 							cwd: this.installDir
 						})
-						.then(output => {
-							return handelListener('install', daemon.id, output.toString());
-						})
+						.then(output => handelListener('install', daemon.id, output.toString()))
 						.then(resolve)
 						.catch(output => {
 							handelListener('install', daemon.id, output.toString())
@@ -329,6 +346,21 @@ module.exports = {
 				resolve(status);
 			});
 		});
+	},
+	checkRunning(daemon) {
+		return new Promise((resolve, reject) => {
+			switch (daemon) {
+				case 'ipfs':
+					const ipfsApi = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
+					console.log(ipfsApi)
+					resolve(true)
+					break
+				case 'florincoind':
+					break
+				case 'libraryd':
+					break
+			}
+		})
 	},
 	shutdown(daemon) {
 		return new Promise((resolve, reject) => {
