@@ -37,7 +37,6 @@ class daemonEngineActions {
     }
 
     ipfs(action, params) {
-        this.dispatch();
         switch (action) {
             case 'enable':
                 DaemonUtil.checkInstalled('ipfs')
@@ -76,10 +75,10 @@ class daemonEngineActions {
                 });
                 break;
         }
+        return false
     }
 
     florincoind(action, params) {
-        this.dispatch();
         switch (action) {
             case 'enable':
                 DaemonUtil.checkInstalled('florincoind')
@@ -104,10 +103,10 @@ class daemonEngineActions {
                     .catch(console.error);
                 break;
         }
+        return false
     }
 
     libraryd(action, params) {
-        this.dispatch();
         switch (action) {
             case 'enable':
                 DaemonUtil.checkInstalled('libraryd')
@@ -138,9 +137,8 @@ class daemonEngineActions {
                     .catch(console.error);
                 break;
         }
+        return false
     }
-
-
 }
 
 export
