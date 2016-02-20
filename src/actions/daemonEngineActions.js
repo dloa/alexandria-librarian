@@ -17,7 +17,7 @@ installing codes:
 4 = enabling    - >.>                           
 5 = updating    - can be daemon or bootstrap    w/ info key
 6 = syncing     - block chain                  
-7 = done        - if you dont know what this means close the tab.   
+7 = done        - done
 8 = error       - w/ error: key for.. info.
 
 */
@@ -47,7 +47,7 @@ class daemonEngineActions {
                                 args: ['daemon']
                             });
                         else
-                            this.actions.ipfs('install');
+                            return this.actions.ipfs('install');
                     });
                 break;
             case 'disable':

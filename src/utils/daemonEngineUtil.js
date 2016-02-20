@@ -14,7 +14,10 @@ import {
 from 'remote';
 import DaemonActions from '../actions/daemonEngineActions';
 import DaemonStore from '../stores/daemonEngineStore';
+
 import florincoindUtil from './daemon/florincoind';
+import IPFSUtil from './daemon/ipfs';
+
 import CommonUtil from './commonUtil';
 
 
@@ -207,11 +210,24 @@ module.exports = {
 	installDir: path.join(app.getPath('userData'), 'bin'),
 
 	enable(daemon) {
-		this.checkRunning(daemon.id)
-			.then(running => {
-				console.log(running)
+		return this.checkAPIRunning(daemon.id)
+			.then(([running, api]) => {
 
-				return
+
+				if (running) {
+					return DaemonActions.enabling({
+						id: daemon.id,
+						code: 4
+					});
+
+					DaemonActions.enabled({
+						api: api,
+						code: 7,
+						id: daemon.id
+					});
+
+					return
+				}
 
 				DaemonActions.enabling({
 					id: daemon.id,
@@ -270,8 +286,8 @@ module.exports = {
 			const sourcePath = path.join(this.binDir, execName);
 
 
-			this.checkRunning(daemon.id)
-				.then(() => this.checkConfig(daemon.id))
+			this.checkAPIRunning(daemon.id)
+				.then(this.checkConfig.bind(this, daemon.id))
 				.then(CommonUtil.copy.bind(this, sourcePath, installPath))
 				.then(() => {
 					return new Promise(resolve => {
@@ -335,29 +351,45 @@ module.exports = {
 		});
 	},
 	checkInstalled(daemon) {
-		DaemonActions.enabling({
-			id: daemon,
-			code: 1
-		});
-		let daemonPath = path.join(this.installDir, this.getExecName(daemon))
-		return new Promise((resolve) => {
+		return new Promise(resolve => {
+			DaemonActions.enabling({
+				id: daemon,
+				code: 1
+			});
+			let daemonPath = path.join(this.installDir, this.getExecName(daemon))
+
+
 			fs.stat(daemonPath, (err, status) => {
 				if (err) return resolve(false);
 				resolve(status);
 			});
 		});
 	},
-	checkRunning(daemon) {
+	checkAPIRunning(daemon) {
 		return new Promise((resolve, reject) => {
+
+return new Promise((resolve, reject) => {
+			switch (daemon) {
+				case 'florincoind':
+					return florincoindUtil.loadConf()
+						.then(resolve)
+						.catch(reject);
+					break;
+				default:
+					return resolve();
+			}
+		});
+
 			switch (daemon) {
 				case 'ipfs':
-					const ipfsApi = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
-					console.log(ipfsApi)
-					resolve(true)
+					var api = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
+					api.version((error, version) => resolve(error && !version ? [false] : [true, api]))
 					break
 				case 'florincoind':
+					resolve(false)
 					break
 				case 'libraryd':
+					resolve(false)
 					break
 			}
 		})
