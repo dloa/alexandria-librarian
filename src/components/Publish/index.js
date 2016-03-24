@@ -37,6 +37,9 @@ default React.createClass({
         componentWillUnmount() {
             publishStore.unlisten(this.update);
         },
+        update(){
+
+        },
         onContinue(event) {
         },
         render() {
