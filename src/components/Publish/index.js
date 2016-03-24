@@ -52,7 +52,7 @@ default React.createClass({
             return (
                 <div className="col-lg-12">
                     {this.state.publisherPage && <PublisherAuth continue={this.onContinue} />}
-                    {this.state.artifactPage && <TabController />}
+                    {this.state.artifactPage && <TabController store={this.publishStore} />}
                 </div>
             );
         }
