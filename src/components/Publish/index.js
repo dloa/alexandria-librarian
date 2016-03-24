@@ -9,10 +9,8 @@ import publishStore from './store';
 
 
 /* Publisher Components */
-import Table from './components/table';
-import Register from './components/register';
-import TypeSwitcher from './components/type_switcher';
-import PublisherSwitcher from './components/publisher_switcher';
+import TabController from './components/tab_controller';
+import PublisherAuth from './components/publisher_auth';
 
 import Tab from './components/type_tabs';
 
@@ -28,17 +26,9 @@ export
 default React.createClass({
 
     getInitialState() {
-            const types = ['Music'];
             return {
-                selectedType: types[0].replace(/\s/g, '').toLowerCase(),
-                files: {
-                    audio: publishStore.getState().audio,
-                    extra: publishStore.getState().extra,
-                    cover: publishStore.getState().cover
-                },
-                meta: {},
-                pricing: {},
-                types
+                publisherPage: true,
+                artifactPage: false
             };
         },
         componentDidMount() {
@@ -47,65 +37,14 @@ default React.createClass({
         componentWillUnmount() {
             publishStore.unlisten(this.update);
         },
-        update() {
-            if (this.isMounted()) {
-                this.setState({
-                    files: {
-                        audio: publishStore.getState().audio,
-                        extra: publishStore.getState().extra,
-                        cover: publishStore.getState().cover
-                    },
-                });
-            }
+        onContinue(event) {
         },
-        handleChangeType(type) {
-            this.setState({
-                selectedType: type.replace(/\s/g, '').toLowerCase()
-            });
-        },
-        handelMetaChange(event) {
-
-
-
-        },
-        handelMoneyBlur(event) {
-
-
-        },
-        handelOnDrop(type, files) {
-            switch (type) {
-                case 'audio':
-                    PublishActions.processFiles('audio', _.filter(files, file => {
-                        return (file.type.indexOf('audio') > -1);
-                    }));
-                    break;
-                case 'extra':
-                    PublishActions.processFiles('extra', files);
-                    break;
-                case 'cover-art':
-
-                    if (this.state.files.cover._id)
-                        PublishActions.removeFile(this.state.files.cover._id);
-
-                    PublishActions.processFiles('cover-art', _.filter(files, file => {
-                        return (file.type.includes('image'))
-                    }));
-                    break;
-            }
-        },
-
-
-
         render() {
             return (
                 <div className="col-lg-12">
-                <div className="section publish" id="publishArtifact">
-                    <h4 className="title">Publish Artifact</h4>
-                    <PublisherSwitcher />
-                    <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>
-                    <Tab {...this.state} />
+                    {this.state.publisherPage && <PublisherAuth continue={this.onContinue} />}
+                    {this.state.artifactPage && <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>}
                 </div>
-            </div>
             );
         }
 });
