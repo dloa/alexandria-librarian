@@ -27,7 +27,7 @@ export
 default React.createClass({
 
     getInitialState() {
-            const types = ['Music'];
+            const types = ['Music', 'Podcast', 'Video'];
             return {
                 selectedType: types[0].replace(/\s/g, '').toLowerCase(),
                 files: {
