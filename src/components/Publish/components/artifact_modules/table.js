@@ -8,6 +8,8 @@ default React.createClass({
         switch (this.props.type) {
             case 'audio':
                 return {
+                    title: "Audio Tracks",
+                    icon: "assets/svg/files-16px_single-folded-content.svg",
                     thead: (
                         <tr>
                             <th>File</th>
@@ -32,6 +34,8 @@ default React.createClass({
                 break;
             case 'extra':
                 return {
+                    title: "Extra Files",
+                    icon: "assets/svg/files-16px_single-folded-content.svg",
                     thead: (
                         <tr>
                             <th>File</th>
@@ -88,19 +92,30 @@ default React.createClass({
 
     render(header = this.getHeader()) {
         return (
-            <table className="table">
-                {header.colgroup}
-                <thead>
-                    {header.thead}
-                </thead>
-                <tbody>
-                    {
-                        this.props.files.map((file, idx) => {
-                            return this.generateFile(file, idx)
-                        })
-                    }
-                </tbody>
-            </table>
+            <div className="publish-section">
+                <div className="publish-files extra-files">
+                    <h5>
+                        <object type="image/svg+xml" data={header.icon}/>
+                        {header.title}
+                    </h5>
+                    <table className="table">
+                        {header.colgroup}
+                        <thead>
+                            {header.thead}
+                        </thead>
+                        <tbody>
+                            {
+                                this.props.files.map((file, idx) => {
+                                    return this.generateFile(file, idx)
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    <div className="upload-area">
+                        <object data="assets/svg/arrows-24px-glyph-2_file-upload-88.svg" type="image/svg+xml"/>
+                    </div>
+                </div>
+            </div>
         );
     }
 });

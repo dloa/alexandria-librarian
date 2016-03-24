@@ -2,6 +2,8 @@ import React from 'react';
 
 import MetaInfo from '../artifact_modules/meta_information';
 import Pricing from '../artifact_modules/pricing';
+import Table from '../artifact_modules/table';
+import Extra from '../drop_zones/extra';
 
 export
 default React.createClass({
@@ -11,6 +13,8 @@ default React.createClass({
                 <div className="row">
                     <MetaInfo music={true} coverTitle={"Cover Art"} />
                     <Pricing music={true} type={"Song"} desc={"Pick the price for your track and album, lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit distinctio doloribus maiores ducimus."} />
+                    <Table files={[]} type={"audio"} />
+                    <Table files={[]} type={"extra"} />
                 </div>
             </div>
         );

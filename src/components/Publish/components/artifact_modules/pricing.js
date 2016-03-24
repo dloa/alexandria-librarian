@@ -15,7 +15,7 @@ default React.createClass({
                         <h5>Price to Play {this.props.type}</h5>
                         <form className="form-horizontal">
                             <div className="form-group">
-                                <label for="" className="col-sm-5 control-label">Suggested:</label>
+                                <label className="col-sm-5 control-label">Suggested:</label>
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
@@ -24,7 +24,7 @@ default React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label for="" className="col-sm-5 control-label">Minimum:</label>
+                                <label className="col-sm-5 control-label">Minimum:</label>
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
@@ -38,7 +38,7 @@ default React.createClass({
                         <h5>Price to Purchase {this.props.type}</h5>
                         <form className="form-horizontal">
                             <div className="form-group">
-                                <label for="" className="col-sm-5 control-label">Suggested:</label>
+                                <label className="col-sm-5 control-label">Suggested:</label>
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
@@ -47,7 +47,7 @@ default React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label for="" className="col-sm-5 control-label">Minimum:</label>
+                                <label className="col-sm-5 control-label">Minimum:</label>
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
@@ -63,7 +63,7 @@ default React.createClass({
 		                        <h5>Price to Play Album</h5>
 		                        <form className="form-horizontal">
 		                            <div className="form-group">
-		                                <label for="" className="col-sm-5 control-label">Suggested:</label>
+		                                <label className="col-sm-5 control-label">Suggested:</label>
 		                                <div className="col-sm-7">
 		                                    <div className="input-group">
 		                                        <div className="input-group-addon">$</div>
@@ -72,7 +72,7 @@ default React.createClass({
 		                                </div>
 		                            </div>
 		                            <div className="form-group">
-		                                <label for="" className="col-sm-5 control-label">Minimum:</label>
+		                                <label className="col-sm-5 control-label">Minimum:</label>
 		                                <div className="col-sm-7">
 		                                    <div className="input-group">
 		                                        <div className="input-group-addon">$</div>
@@ -86,7 +86,7 @@ default React.createClass({
 		                        <h5>Price to Purchase Album</h5>
 		                        <form className="form-horizontal">
 		                            <div className="form-group">
-		                                <label for="" className="col-sm-5 control-label">Suggested:</label>
+		                                <label className="col-sm-5 control-label">Suggested:</label>
 		                                <div className="col-sm-7">
 		                                    <div className="input-group">
 		                                        <div className="input-group-addon">$</div>
@@ -95,7 +95,7 @@ default React.createClass({
 		                                </div>
 		                            </div>
 		                            <div className="form-group">
-		                                <label for="" className="col-sm-5 control-label">Minimum:</label>
+		                                <label className="col-sm-5 control-label">Minimum:</label>
 		                                <div className="col-sm-7">
 		                                    <div className="input-group">
 		                                        <div className="input-group-addon">$</div>
