@@ -9,7 +9,7 @@ default React.createClass({
             case 'audio':
                 return {
                     title: "Audio Tracks",
-                    icon: "assets/svg/files-16px_single-folded-content.svg",
+                    icon: "images/svg/media-16px-2_note-03.svg",
                     thead: (
                         <tr>
                             <th>File</th>
@@ -35,7 +35,7 @@ default React.createClass({
             case 'extra':
                 return {
                     title: "Extra Files",
-                    icon: "assets/svg/files-16px_single-folded-content.svg",
+                    icon: "images/svg/files-16px_single-folded-content.svg",
                     thead: (
                         <tr>
                             <th>File</th>
@@ -112,7 +112,7 @@ default React.createClass({
                         </tbody>
                     </table>
                     <div className="upload-area">
-                        <object data="assets/svg/arrows-24px-glyph-2_file-upload-88.svg" type="image/svg+xml"/>
+                        <object data="images/svg/arrows-24px-glyph-2_file-upload-88.svg" type="image/svg+xml"/>
                     </div>
                 </div>
             </div>

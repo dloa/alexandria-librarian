@@ -10,7 +10,7 @@ default React.createClass({
                         <p className="small">{this.props.desc}</p>
                     </div>
                     <div className="col-sm-3 text-right">
-                        <button onclick={this.props.onClick} className="btn btn-primary">Publish</button>
+                        <button onClick={this.props.onClick} className="btn btn-primary">Publish</button>
                     </div>
                 </div>
             </div>
