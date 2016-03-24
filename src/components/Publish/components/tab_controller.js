@@ -95,8 +95,10 @@ default React.createClass({
             return (
                 <div className="section publish" id="publishArtifact">
                     <h4 className="title">Publisher Artifact</h4>
-                    <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>
-                    <Tab {...this.state} />
+                    <div className="col-lg-12">
+                        <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>
+                        <Tab {...this.state} />
+                    </div>
                 </div>
             );
         }
