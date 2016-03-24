@@ -6,9 +6,9 @@ default React.createClass({
     render() {
         return (
             <div className="col-sm-4">
-                <h5>Cover Art</h5>
+                <h5>{this.props.title}</h5>
                 <div className="cover-art">
-                    <p>Cover art</p>
+                    <p>{this.props.title}</p>
                 </div>
             </div>
         );

@@ -27,8 +27,8 @@ default React.createClass({
 
     getInitialState() {
             return {
-                publisherPage: true,
-                artifactPage: false
+                publisherPage: false,
+                artifactPage: true
             };
         },
         componentDidMount() {
