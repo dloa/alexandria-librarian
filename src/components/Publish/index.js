@@ -41,12 +41,18 @@ default React.createClass({
 
         },
         onContinue(event) {
+            console.log("Continue to Publish Artifact");
+
+            this.setState({
+                publisherPage: false,
+                artifactPage: true
+            })
         },
         render() {
             return (
                 <div className="col-lg-12">
                     {this.state.publisherPage && <PublisherAuth continue={this.onContinue} />}
-                    {this.state.artifactPage && <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>}
+                    {this.state.artifactPage && <TabController />}
                 </div>
             );
         }

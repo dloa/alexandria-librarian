@@ -12,7 +12,6 @@ import publishStore from '../store';
 import Table from './table';
 import Register from './register';
 import TypeSwitcher from './type_switcher';
-import PublisherSwitcher from './publisher_auth';
 
 import Tab from './type_tabs';
 
@@ -68,8 +67,6 @@ default React.createClass({
 
 
         },
-        onContinue(event) {
-        },
         handelOnDrop(type, files) {
             switch (type) {
                 case 'audio':
@@ -99,7 +96,6 @@ default React.createClass({
                 <div className="col-lg-12">
                 <div className="section publish" id="publishArtifact">
                     <h4 className="title">Publisher Artifcat</h4>
-                    <PublisherSwitcher continue={this.onContinue} />
                     <TypeSwitcher handleChangeType={this.handleChangeType} types={this.state.types} selected={this.state.selectedType}/>
                     <Tab {...this.state} />
                 </div>

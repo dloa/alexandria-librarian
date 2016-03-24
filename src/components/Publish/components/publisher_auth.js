@@ -2,6 +2,10 @@ import React from 'react';
 
 export
 default React.createClass({
+    onContinue(event){
+        console.log("test")
+        this.props.continue();
+    },
     render() {
         return (
             <div className="section publish" id="publishAuth">
@@ -55,7 +59,7 @@ default React.createClass({
                         <input type="text" className="form-control" id="" placeholder="Bitcoin address"></input>
                     </div>
                 </form>
-               <button onclick="asf()" className="btn btn-primary btn-next">Continue to publish artifact</button>
+               <button onClick={this.onContinue} className="btn btn-primary btn-next">Continue to publish artifact</button>
             </div>
         );
     }
