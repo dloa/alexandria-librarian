@@ -503,11 +503,43 @@ td.unpin {
     .cover-art {
         width: 180px;
         height: 180px;
-        display: table; 
-        background: $ltgray;
-        border-radius: 3px;
+        display: table;
+        border: 1px dashed rgba(black, .1);
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        padding: 5px;
+        transition: all 0.1s;
+        &:hover {
+            padding: 10px;
+            margin: -5px;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            border: 1px dashed rgba(black, .1);
+            background-color: rgba(black, .025);
+            transition: all 0.1s;
+        }
         p {
-            text-align:center; 
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;  
+        }
+    }
+    .cover-art-active {
+        width: 180px;
+        height: 180px;
+        display: table;
+        border: 1px dashed rgba(black, .1);
+        background-color: rgba(black, .025);
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        margin: -5px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        p {
+            text-align: center;
             vertical-align: middle;
             display: table-cell;  
         }
