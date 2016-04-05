@@ -2,6 +2,10 @@ import React from 'react';
 
 export
 default React.createClass({
+	formatPrice(event){
+		console.log(event.target.id);
+		event.target.value = "test";
+	},
     render() {
         return (
             <div className="publish-section publish-pricing">
@@ -19,7 +23,7 @@ default React.createClass({
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
-                                        <input type="text" className="form-control" id="" placeholder="0.00" />
+                                        <input type="text" className="form-control" onBlur={this.formatPrice} id="suggestedPlay" placeholder="0.00" />
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +32,7 @@ default React.createClass({
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
-                                        <input type="text" className="form-control" id="" placeholder="0.00" />
+                                        <input type="text" className="form-control" onBlur={this.formatPrice} id="suggestedPlayMin" placeholder="0.00" />
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +46,7 @@ default React.createClass({
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
-                                        <input type="text" className="form-control" id="" placeholder="0.00" />
+                                        <input type="text" className="form-control" onBlur={this.formatPrice} id="suggestedBuy" placeholder="0.00" />
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +55,7 @@ default React.createClass({
                                 <div className="col-sm-7">
                                     <div className="input-group">
                                         <div className="input-group-addon">$</div>
-                                        <input type="text" className="form-control" id="" placeholder="0.00" />
+                                        <input type="text" className="form-control" onBlur={this.formatPrice} id="suggestedBuyMin" placeholder="0.00" />
                                     </div>
                                 </div>
                             </div>
